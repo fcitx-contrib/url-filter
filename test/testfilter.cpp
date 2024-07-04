@@ -2,8 +2,19 @@
 #include <cassert>
 
 void test_dummy() {
-    assert((url_filter::filterTrackingParameters("dummy") ==
-            std::make_pair("", false)));
+    assert(url_filter::filterTrackingParameters("dummy") == "dummy");
 }
 
-int main() { test_dummy(); }
+void test_exception() {
+    assert(url_filter::filterTrackingParameters(
+               "https://www.google.com/mail/u/?ved=0") ==
+           "https://www.google.com/mail/u/");
+    assert(url_filter::filterTrackingParameters(
+               "https://mail.google.com/mail/u/?ved=0") ==
+           "https://mail.google.com/mail/u/?ved=0");
+}
+
+int main() {
+    test_dummy();
+    test_exception();
+}

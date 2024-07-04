@@ -2,13 +2,13 @@
 #include "rules.hpp"
 
 namespace url_filter {
-std::pair<std::string, bool> filterTrackingParameters(const std::string &url) {
+std::string filterTrackingParameters(std::string url) {
     for (const auto &rule : url_filter::rules) {
         auto result = rule.transform(url);
-        if (result.second) {
+        if (result != url) {
             return result;
         }
     }
-    return {"", false};
+    return url;
 }
 } // namespace url_filter
