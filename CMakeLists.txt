@@ -20,6 +20,7 @@ add_custom_target(TransformJSON ALL
 add_library(url-filter
     src/url-filter.cpp
     src/rules.cpp
+    src/util.cpp
 )
 
 if (ENABLE_TEST)
