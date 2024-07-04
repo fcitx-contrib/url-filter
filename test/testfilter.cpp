@@ -14,7 +14,21 @@ void test_exception() {
            "https://mail.google.com/mail/u/?ved=0");
 }
 
+void test_redirect() {
+    assert(url_filter::filterTrackingParameters(
+               "https://www.google.com/url?q=https://example.com") ==
+           "https://example.com");
+}
+
+void test_raw_rule() {
+    assert(url_filter::filterTrackingParameters(
+               "https://www.pantip.com/foo/#lead233") ==
+           "https://www.pantip.com/foo/");
+}
+
 int main() {
     test_dummy();
     test_exception();
+    test_redirect();
+    test_raw_rule();
 }

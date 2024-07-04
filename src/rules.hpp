@@ -37,6 +37,9 @@ class Rule {
                 url = decodeURL(matchResult[1].str());
             }
         }
+        for (const auto &rawRule : rawRules) {
+            url = std::regex_replace(url, rawRule, "");
+        }
         for (const auto &rule : rules) {
             url = std::regex_replace(
                 url, std::regex("(?:&amp;|[/?#&])" + rule + "=[^&]*"), "");
