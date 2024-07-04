@@ -2,6 +2,11 @@
 
 import json
 
+
+def cpp_vector(l: list[str]) -> str:
+    return '{' + ', '.join(json.dumps(s) for s in l) + '}'
+
+
 with open('Rules/data.min.json', 'r') as file:
     data = json.load(file)
 
@@ -21,5 +26,25 @@ for o in data['providers'].values():
         'redirections': redirections
     })
 
-with open('url.json', 'w') as file:
-    json.dump(results, file)
+with open('src/rules.cpp', 'w') as file:
+    file.write('''
+#include "rules.hpp"
+
+namespace url_filter {
+std::vector<Rule> rules = {''')
+
+    for rule in results:
+        file.write('''
+    Rule({}, {}, {}, {}, {}),'''
+                   .format(
+                       json.dumps(rule['urlPattern']),
+                       cpp_vector(rule['rules']),
+                       cpp_vector(rule['rawRules']),
+                       cpp_vector(rule['exceptions']),
+                       cpp_vector(rule['redirections'])
+                    ))
+
+    file.write('''
+};
+}
+''')
