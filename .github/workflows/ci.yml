@@ -32,9 +32,15 @@ jobs:
         with:
           submodules: true
 
-      - name: Install dependencies
+      - name: Install dependencies (macOS)
+        if: startsWith(matrix.os, 'macos')
         run: |
           brew install ninja
+
+      - name: Install dependencies (Ubuntu)
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          sudo apt install -y ninja-build
 
       - name: Build
         run: |
