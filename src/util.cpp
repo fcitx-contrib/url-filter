@@ -3,7 +3,8 @@
 
 namespace url_filter {
 
-std::string kotlinDecode(const std::string &url) {
+// https://developer.android.com/reference/java/net/URLDecoder
+std::string urlDecode(const std::string &url) {
     std::ostringstream decoded;
     decoded << std::hex;
 
@@ -29,7 +30,7 @@ std::string kotlinDecode(const std::string &url) {
 
 std::string decodeURL(const std::string &url) {
     auto temp = std::regex_replace(url, std::regex("\\+"), "%2B");
-    return std::regex_replace(kotlinDecode(temp), std::regex("%2B"), "+");
+    return std::regex_replace(urlDecode(temp), std::regex("%2B"), "+");
 }
 
 std::vector<std::regex> compileRules(const std::vector<std::string> &rules) {
