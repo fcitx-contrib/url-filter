@@ -18,6 +18,9 @@ void test_redirect() {
     assert(url_filter::filterTrackingParameters(
                "https://www.google.com/url?q=https://example.com") ==
            "https://example.com");
+    assert(url_filter::filterTrackingParameters(
+               "https://www.google.com/url?q=http%3A%2F%2Fexample.com") ==
+           "http://example.com");
 }
 
 void test_raw_rule() {

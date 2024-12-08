@@ -17,7 +17,7 @@ add_custom_target(TransformJSON ALL
     DEPENDS ${PROJECT_SOURCE_DIR}/src/rules.cpp
 )
 
-add_library(url-filter
+add_library(url-filter STATIC
     src/url-filter.cpp
     src/rules.cpp
     src/util.cpp
