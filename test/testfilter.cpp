@@ -23,6 +23,15 @@ void test_redirect() {
            "http://example.com");
 }
 
+void test_malformed_percent_escape() {
+    assert(url_filter::filterTrackingParameters(
+               "https://www.google.com/url?q=http%g") == "http%g");
+    assert(url_filter::filterTrackingParameters(
+               "https://www.google.com/url?q=http%gg") == "http%gg");
+    assert(url_filter::filterTrackingParameters(
+               "https://www.google.com/url?q=http%") == "http%");
+}
+
 void test_raw_rule() {
     assert(url_filter::filterTrackingParameters(
                "https://www.pantip.com/foo/#lead233") ==
@@ -33,5 +42,6 @@ int main() {
     test_dummy();
     test_exception();
     test_redirect();
+    test_malformed_percent_escape();
     test_raw_rule();
 }
