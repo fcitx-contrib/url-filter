@@ -25,8 +25,7 @@ void test_redirect() {
 
 void test_malformed_percent_escape() {
     assert(url_filter::filterTrackingParameters(
-               "https://www.google.com/url?q=http%g") ==
-           "http%g");
+               "https://www.google.com/url?q=http%g") == "http%g");
 }
 
 void test_raw_rule() {
